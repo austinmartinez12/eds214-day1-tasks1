@@ -33,7 +33,8 @@ ggplot(data = clean_Q1_rollmean, aes(x = year, y = ca_rolling_mean)) +
   theme_minimal() +
   labs(
     x = "Year",
-    y = "Calcium Rolling Mean" )
+    y = "Calcium Rolling average",
+    title = "messed up title")
   
 
 
