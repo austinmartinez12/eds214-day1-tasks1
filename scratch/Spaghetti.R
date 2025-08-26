@@ -28,7 +28,7 @@ clean_Q1_unique <- clean_Q1 |>
   mutate( no3_n_rolling_mean = rollmean(no3_n, k = 9, fill = NA, align = "center")) |>
   mutate( k_n_rolling_mean = rollmean(k, k = 9, fill = NA, align = "center"))
 
-ggplot(data = clean_Q1_rollmean, aes(x = year, y = ca_rolling_mean)) +
+ggplot(data = Q1_rollmean, aes(x = sample_date, y = ca_rolling_mean)) +
   geom_line() +
   theme_minimal() +
   labs(
