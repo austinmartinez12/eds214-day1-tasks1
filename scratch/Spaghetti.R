@@ -1,3 +1,9 @@
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                                                            --
+##--------------------------------- # CONTENT-----------------------------------
+##                                                                            --
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 library(dplyr)
 library(tidyverse)
 library(zoo)
@@ -32,10 +38,7 @@ ggplot(data = Q1_rollmean, aes(x = sample_date, y = ca_rolling_mean)) +
   geom_line() +
   theme_minimal() +
   labs(
-    x = "Year",
-    y = "Calcium Rolling Mean" )
   
-
 
 
 
