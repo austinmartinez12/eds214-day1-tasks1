@@ -1,9 +1,3 @@
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                                                                            --
-##--------------------------------- # CONTENT-----------------------------------
-##                                                                            --
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 library(dplyr)
 library(tidyverse)
 library(zoo)
@@ -33,12 +27,6 @@ clean_Q1_unique <- clean_Q1 |>
   mutate( mg_rolling_mean = rollmean(mg, k = 9, fill = NA, align = "center")) |>
   mutate( no3_n_rolling_mean = rollmean(no3_n, k = 9, fill = NA, align = "center")) |>
   mutate( k_n_rolling_mean = rollmean(k, k = 9, fill = NA, align = "center"))
-
-ggplot(data = Q1_rollmean, aes(x = sample_date, y = ca_rolling_mean)) +
-  geom_line() +
-  theme_minimal() +
-  labs(
-  
 
 
 
