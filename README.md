@@ -1,6 +1,6 @@
 # Hurricane Effects on Stream Chemistry
 
-![Luquillo Mountains](https://i0.wp.com/tours4lesspr.com/wp-content/uploads/2019/08/slider-large-biobay-04-1.jpg?fit=1200%2C800&ssl=1){width="495" height="187"}
+![Luquillo Mountains](https://i0.wp.com/tours4lesspr.com/wp-content/uploads/2019/08/slider-large-biobay-04-1.jpg?fit=1200%2C800&ssl=1){width="312" height="112"}
 
 The point of this repository is to show how I reproduced Figure. 3 in (Schaefer et al. 2000) using the same data from the paper in R.
 
