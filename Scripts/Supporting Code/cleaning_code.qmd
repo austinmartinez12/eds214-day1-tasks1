@@ -5,8 +5,8 @@ format: html
 editor: visual
 ---
 
-
 # Background
+
 ```{r}
 #loading in libraries
 library(dplyr)
@@ -17,6 +17,7 @@ library(here)
 ```
 
 # Data
+
 ```{r}
 # Reading in CSVs
 Q1 <-read_csv(here::here("Data", "QuebradaCuenca1-Bisley.csv"))
@@ -89,4 +90,3 @@ write.csv(q2_unique, file = here("Data", "cleaned_data", "q2_unique.csv"), row.n
 write.csv(q3_unique, file = here("Data", "cleaned_data", "q3_unique.csv"), row.names = FALSE)
 write.csv(prm_unique, file = here("Data", "cleaned_data", "prm_unique.csv"), row.names = FALSE)
 ```
-

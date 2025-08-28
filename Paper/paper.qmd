@@ -10,74 +10,19 @@ editor: visual
 #loading in libraries
 library(dplyr)
 library(tidyverse)
-library(zoo)
 library(slider)
 ```
 
 # Data
 ```{r}
 # Reading in CSVs
-Q1 <-read_csv(here::here("Data", "QuebradaCuenca1-Bisley.csv"))
-Q2 <- read_csv(here::here("Data", "QuebradaCuenca2-Bisley.csv"))
-Q3 <- read_csv(here::here("Data", "QuebradaCuenca3-Bisley.csv"))
-PRM <- read_csv(here::here("Data", "RioMameyesPuenteRoto.csv"))
-
-# Making all variables lower case in all data frames
-Q1janitor <- Q1 |>
-  janitor::clean_names()
-Q2janitor <- Q2 |>
-  janitor::clean_names()
-Q3janitor <- Q3 |>
-  janitor::clean_names()
-PRMjanitor <- PRM |>
-  janitor::clean_names()
-
-#filtering out unnecessary columns in all data frames. # We only need sample_id, sample_date, nh4_n, ca, mg, no3_n, and k to calculate our rolling averages
-clean_q1 <- Q1janitor |>
-  select(sample_id, sample_date, nh4_n, ca, mg, no3_n, k) |>
-  mutate(year = lubridate::year(sample_date)) |>
-  filter(year <= 1995, year >= 1988) |>
-  arrange(sample_date)
-
-clean_q2 <- Q2janitor |>
-  select(sample_id, sample_date, nh4_n, ca, mg, no3_n, k) |>
-  mutate(year = lubridate::year(sample_date)) |>
-  filter(year <= 1995, year >= 1988) |>
-  arrange(sample_date)
-
-clean_q3 <- Q3janitor |>
-  select(sample_id, sample_date, nh4_n, ca, mg, no3_n, k) |>
-  mutate(year = lubridate::year(sample_date)) |>
-  filter(year <= 1995, year >= 1988) |>
-  arrange(sample_date)
-
-clean_prm <- PRMjanitor |>
-  select(sample_id, sample_date, nh4_n, ca, mg, no3_n, k) |>
-  mutate(year = lubridate::year(sample_date)) |>
-  filter(year <= 1995, year >= 1988) |>
-  arrange(sample_date)
+# I cleaned the Data on a seperate R script called clean_code.qmd in Scripts/Supporting Code
+q1_unique <-read_csv(here::here("Data", "cleaned_data", "q1_unique.csv"))
+q2_unique <- read_csv(here::here("Data", "cleaned_data", "q2_unique.csv"))
+q3_unique <- read_csv(here::here("Data", "cleaned_data", "q3_unique.csv"))
+prm_unique <- read_csv(here::here("Data", "cleaned_data", "prm_unique.csv"))
 
 
-# Taking out duplicate dates out of each data set and randomly selecting 1 to keep
-q1_unique <- clean_q1 |>
-  group_by(sample_date) |>
-  slice_sample(n = 1) |>
-  ungroup()
-
-q2_unique <- clean_q2 |>
-  group_by(sample_date) |>
-  slice_sample(n = 1) |>
-  ungroup()
-
-q3_unique <- clean_q3 |>
-  group_by(sample_date) |>
-  slice_sample(n = 1) |>
-  ungroup()
-
-prm_unique <- clean_prm |>
-  group_by(sample_date) |>
-  slice_sample(n = 1) |>
-  ungroup()
 ```
 
 # Methods
