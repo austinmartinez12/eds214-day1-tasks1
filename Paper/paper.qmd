@@ -6,6 +6,7 @@ editor: visual
 ---
 
 # Background
+
 ```{r}
 #loading in libraries
 library(dplyr)
@@ -14,6 +15,7 @@ library(slider)
 ```
 
 # Data
+
 ```{r}
 # Reading in CSVs
 # I cleaned the Data on a seperate R script called clean_code.qmd in Scripts/Supporting Code
@@ -26,6 +28,7 @@ prm_unique <- read_csv(here::here("Data", "cleaned_data", "prm_unique.csv"))
 ```
 
 # Methods
+
 ```{r}
 # Calculation centered moving average for NH4_N, Ca, Mg, NO3_N, and K for each data with a 9 week sliding window.
 # Calculation moving average for Q1
@@ -104,6 +107,7 @@ river_long <- pivot_longer(data = river_df,
 ```
 
 # Results
+
 ```{r}
 # Generates ggplot 
 # I'm still unsure if I use the bottom or top one.
@@ -121,4 +125,3 @@ ggplot(data = river_long %>%
   geom_line() + facet_wrap(~contaminant, scales = "free_y", ncol = 1) +
   theme_linedraw()+ labs(x = "Year", y = "Rolling Means")
 ```
-
