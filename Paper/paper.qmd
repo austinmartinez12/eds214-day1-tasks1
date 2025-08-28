@@ -113,10 +113,12 @@ river_long <- pivot_longer(data = river_df,
 # I'm still unsure if I use the bottom or top one.
 # I still need to add that line that shows when the hurricane is at.
 
+hurricane_date <- ymd("1989-09-18")
 # Keeps the NAs in rolling_avgs
 ggplot(data = river_long, aes(x = sample_date, y = rolling_avgs, linetype = sample_id)) +
-  geom_line() + facet_wrap(~contaminant, scales = "free_y", ncol = 1) +
-  theme_linedraw()+ labs(x = "Year", y = "Rolling Means")
+  geom_line() + facet_wrap(~contaminant, scales = "free_y", ncol = 1, strip.position = "left") +
+  theme_linedraw()+ labs(x = "Year", y = "Rolling Means") +
+  geom_vline(xintercept = hurricane_date, linetype = "dashed")
 
 # Removes the NAs in rolling_avgs
 ggplot(data = river_long %>% 
