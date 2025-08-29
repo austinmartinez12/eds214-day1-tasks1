@@ -12,11 +12,11 @@ editor: visual
 ```
 
 ```{r}
-#loading in libraries
-library(dplyr)
-library(tidyverse)
-library(slider)
-library(here)
+# This read in my function for library function
+source(here::here("scripts", "R", "library_function.R"))
+
+# This loaded in all 4 packages
+load_library(c("dplyr", "tidyverse", "slider", "here"))
 
 ```
 
