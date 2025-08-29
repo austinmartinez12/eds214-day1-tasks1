@@ -8,6 +8,10 @@ editor: visual
 # Background
 
 ```{r}
+# If you don't have these libraries downloaded use the install.packages.R script in scripts/supporting code
+```
+
+```{r}
 #loading in libraries
 library(dplyr)
 library(tidyverse)
@@ -19,10 +23,10 @@ library(slider)
 ```{r}
 # Reading in CSVs
 # I cleaned the Data on a seperate R script called clean_code.qmd in Scripts/Supporting Code
-q1_unique <-read_csv(here::here("Data", "cleaned_data", "q1_unique.csv"))
-q2_unique <- read_csv(here::here("Data", "cleaned_data", "q2_unique.csv"))
-q3_unique <- read_csv(here::here("Data", "cleaned_data", "q3_unique.csv"))
-prm_unique <- read_csv(here::here("Data", "cleaned_data", "prm_unique.csv"))
+q1_unique <-read_csv(here::here("outputs", "cleaned_data", "q1_unique.csv"))
+q2_unique <- read_csv(here::here("outputs", "cleaned_data", "q2_unique.csv"))
+q3_unique <- read_csv(here::here("outputs", "cleaned_data", "q3_unique.csv"))
+prm_unique <- read_csv(here::here("outputs", "cleaned_data", "prm_unique.csv"))
 
 
 ```
@@ -109,21 +113,14 @@ river_long <- pivot_longer(data = river_df,
 # Results
 
 ```{r}
-# Generates ggplot 
-# I'm still unsure if I use the bottom or top one.
-# I still need to add that line that shows when the hurricane is at.
-
+# Generates ggplot ,strip.position = "left"
 hurricane_date <- ymd("1989-09-18")
-# Keeps the NAs in rolling_avgs
-ggplot(data = river_long, aes(x = sample_date, y = rolling_avgs, linetype = sample_id)) +
-  geom_line() + facet_wrap(~contaminant, scales = "free_y", ncol = 1, strip.position = "left") +
-  theme_linedraw()+ labs(x = "Year", y = "Rolling Means") +
-  geom_vline(xintercept = hurricane_date, linetype = "dashed")
 
 # Removes the NAs in rolling_avgs
 ggplot(data = river_long %>% 
          filter(!is.na(rolling_avgs)),
-  aes(x = sample_date, y = rolling_avgs, linetype = sample_id)) +
-  geom_line() + facet_wrap(~contaminant, scales = "free_y", ncol = 1) +
-  theme_linedraw()+ labs(x = "Year", y = "Rolling Means")
+  aes(x = sample_date, y = rolling_avgs, color = sample_id)) +
+  geom_line() + facet_wrap(~contaminant, scales = "free_y", ncol = 1,strip.position = "left" ) +
+  theme_linedraw()+ labs(x = "Year", y = "Rolling Means", color = "Sample ID") + 
+  geom_vline(xintercept = hurricane_date, linetype = "dashed")
 ```
