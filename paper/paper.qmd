@@ -28,7 +28,7 @@ The data I was working with is from (Schaefer et al. 2000). This data shows conc
 
 ```{r}
 # Reading in CSVs
-# I cleaned the Data on a seperate R script called clean_code.qmd in Scripts/Supporting Code
+# Data was cleaned the Data on a seperate R script called clean_code.qmd in Scripts/Supporting Code
 q1_unique <-read_csv(here::here("outputs", "cleaned_data", "q1_unique.csv"))
 q2_unique <- read_csv(here::here("outputs", "cleaned_data", "q2_unique.csv"))
 q3_unique <- read_csv(here::here("outputs", "cleaned_data", "q3_unique.csv"))
@@ -150,5 +150,3 @@ Rollingmeanplot
 # Saving my ggplot to the outputs folder
 ggsave(Rolling_mean_plot, file = here("outputs", "figs", "Rolling_mean_plot.png"))
 ```
-
-
