@@ -8,7 +8,7 @@ The point of this repository is to show how I reproduced Figure. 3 in (Schaefer 
 
 This repository contains:
 
--   **data**: Contains Raw data
+-   **data**: Contains raw data
 -   **docs**: Contains rendered paper.html
 -   **outputs**: Contains CSVs with cleaned data and (Schaefer et al. 2000) Figure. 3 imitation plot
 -   **paper**: Quarto Document shows data analysis and visualization
