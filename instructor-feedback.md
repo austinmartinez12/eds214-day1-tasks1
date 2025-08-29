@@ -34,9 +34,10 @@ https://github.com/austinmartinez12/eds214-day1-tasks1/commit/963dcc8fb920feb5bb
 [M] The analysis runs without errors
 
 [M] **The analysis produces the expected output**
+- Re-organize to match Fig. 3 in Schaefer et al. (2000)
 
-[NY] **Data import/cleaning is handled in its own script(s)**
-- Ran within `paper.qmd`, should use `source()`
+[M] **Data import/cleaning is handled in its own script(s)**
+- In the future, should modularize within `paper.qmd` and use `source()`
 
 ## Organize
 
