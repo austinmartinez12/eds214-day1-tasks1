@@ -7,7 +7,7 @@ editor: visual
 
 # Background
 
-The point of this repository is to show how I reproduced Figure. 3 in (Schaefer et al. 2000) using the same data from the paper in R. To do this I used the packages dplyr, tidyverse, slider, and here. The figure I am trying to replicate shows how concentrations of NH4_N, Ca, Mg, NO3_N, and K in rivers changed after Hurricane Hugo. 
+The point of this repository is to show how I reproduced Figure. 3 in (Schaefer et al. 2000) using the same data from the paper in R. To do this I used the packages dplyr, tidyverse, slider, and here. The figure I am trying to replicate shows how concentrations of NH4_N, Ca, Mg, NO3_N, and K in rivers changed after Hurricane Hugo.
 
 ```{r}
 # If you don't have these packages installed(dplyr, tidyverse, slider, here) downloaded use the install.packages.R script in scripts/supporting code
@@ -125,7 +125,7 @@ river_long <- pivot_longer(data = river_df,
 
 # Results
 
-To display the results I used ggplot. I made a function in the scripts/R folder  in the awesome_function.R script. I used this function easily import the themes I wanted to use in this graph. This figure shows the rolling average of NH4_N, Ca, Mg, NO3_N, and K concentration from 1988-1996 in rivers.
+To display the results I used ggplot. I made a function in the scripts/R folder in the awesome_function.R script. I used this function easily import the themes I wanted to use in this graph. This figure shows the rolling average of NH4_N, Ca, Mg, NO3_N, and K concentration from 1988-1996 in rivers.
 
 ```{r}
 # Generates ggplot
@@ -148,5 +148,5 @@ Rolling_mean_plot
 
 ```{r}
 # Saving my ggplot to the outputs folder
-ggsave(Rolling_mean_plot, file = here("outputs", "Rolling_mean_plot.png"))
+ggsave(Rolling_mean_plot, file = here("outputs", "figs", "Rolling_mean_plot.png"))
 ```
