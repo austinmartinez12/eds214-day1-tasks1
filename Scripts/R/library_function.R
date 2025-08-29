@@ -1,6 +1,6 @@
-# this makes it so that you don't have to manually have to type library() for each package
+# This makes it so that you don't have to manually have to type library() for each package
 load_library <- function(packages) {
-  for (pkg in packages) {
-    library(pkg, character.only = TRUE)
+  for (p in packages) {
+    library(p, character.only = TRUE)
   }
 }
