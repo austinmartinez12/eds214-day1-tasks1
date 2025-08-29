@@ -7,6 +7,8 @@ editor: visual
 
 # Background
 
+The point of this repository is to show how I reproduced Figure. 3 in (Schaefer et al. 2000) using the same data from the paper in R. To do this I used the packages dplyr, tidyverse, slider, and here. The figure I am trying to replicate shows how concentrations of NH4_N, Ca, Mg, NO3_N, and K in rivers changed after Hurricane Hugo. 
+
 ```{r}
 # If you don't have these packages installed(dplyr, tidyverse, slider, here) downloaded use the install.packages.R script in scripts/supporting code
 ```
@@ -22,6 +24,8 @@ load_library(c("dplyr", "tidyverse", "slider", "here"))
 
 # Data
 
+The data I was working with is from (Schaefer et al. 2000). This data shows concentration of NH4_N, Ca, Mg, NO3_N, and K in 4 different rivers on intermittent days. I did the data cleaning in a script called cleaning_code.R that is in the scripts/supporting code folder. I made cleaned CSVs with this script and saved them into outputs/cleaned_data folder. These 4 CSVs were then read into the code below to run the analysis.
+
 ```{r}
 # Reading in CSVs
 # I cleaned the Data on a seperate R script called clean_code.qmd in Scripts/Supporting Code
@@ -34,6 +38,8 @@ prm_unique <- read_csv(here::here("outputs", "cleaned_data", "prm_unique.csv"))
 ```
 
 # Methods
+
+The analysis used in this project is a centered rolling average that is calculated over 9 week intervals. Since the samples were taken on intermittent days I used the slide_index_dbl() function from the package slider to find the rolling average. This function was preformed on all 4 data sets separately (q1_unique.csv, q2_unique.csv, q3_unique.csv, prm_unique.csv). Once the rolling average was calculated for each contaminant, the data was merged into one big data set. I then pivoted longer, so it can be plotted using a facet_wrap.
 
 ```{r}
 # Calculation centered moving average for NH4_N, Ca, Mg, NO3_N, and K for each data with a 9 week sliding window.
@@ -119,6 +125,8 @@ river_long <- pivot_longer(data = river_df,
 
 # Results
 
+To display the results I used ggplot. I made a function in the scripts/R folder  in the awesome_function.R script. I used this function easily import the themes I wanted to use in this graph. This figure shows the rolling average of NH4_N, Ca, Mg, NO3_N, and K concentration from 1988-1996 in rivers.
+
 ```{r}
 # Generates ggplot
 
@@ -142,5 +150,3 @@ Rolling_mean_plot
 # Saving my ggplot to the outputs folder
 ggsave(Rolling_mean_plot, file = here("outputs", "Rolling_mean_plot.png"))
 ```
-
-
