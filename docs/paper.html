@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,9 +22,8 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -35,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -60,21 +59,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <script src="paper_files/libs/clipboard/clipboard.min.js"></script>
-<script src="paper_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="paper_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="paper_files/libs/quarto-html/quarto.js"></script>
 <script src="paper_files/libs/quarto-html/popper.min.js"></script>
 <script src="paper_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="paper_files/libs/quarto-html/anchor.min.js"></script>
 <link href="paper_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="paper_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="paper_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="paper_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="paper_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="paper_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="paper_files/libs/bootstrap/bootstrap-c0367b04c37547644fece4185067e4a7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
 
-<body class="fullcontent quarto-light">
+<body class="fullcontent">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 
@@ -107,9 +105,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="background" class="level1">
 <h1>Background</h1>
+<p>The point of this repository is to show how I reproduced Figure. 3 in (Schaefer et al.&nbsp;2000) using the same data from the paper in R. To do this I used the packages dplyr, tidyverse, slider, and here. The figure I am trying to replicate shows how concentrations of NH4_N, Ca, Mg, NO3_N, and K in rivers changed after Hurricane Hugo.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#loading in libraries</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you don't have these packages installed(dplyr, tidyverse, slider, here) downloaded use the install.packages.R script in scripts/supporting code</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This read in my function for library function</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"scripts"</span>, <span class="st">"R"</span>, <span class="st">"library_function.R"</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># This loaded in all 4 packages</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">load_library</span>(<span class="fu">c</span>(<span class="st">"dplyr"</span>, <span class="st">"tidyverse"</span>, <span class="st">"slider"</span>, <span class="st">"here"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'dplyr'</code></pre>
@@ -124,32 +129,27 @@ Attaching package: 'dplyr'</code></pre>
 
     intersect, setdiff, setequal, union</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ forcats   1.0.0     ✔ readr     2.1.5
 ✔ ggplot2   3.5.2     ✔ stringr   1.5.1
-✔ lubridate 1.9.4     ✔ tibble    3.2.1
-✔ purrr     1.0.4     ✔ tidyr     1.3.1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✔ lubridate 1.9.4     ✔ tibble    3.3.0
+✔ purrr     1.0.4     ✔ tidyr     1.3.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(slider)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'slider' was built under R version 4.5.1</code></pre>
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
+here() starts at /Users/austinmartinez/Documents/MEDS/EDS-214/eds214-day1-tasks1</code></pre>
 </div>
 </div>
 </section>
 <section id="data" class="level1">
 <h1>Data</h1>
+<p>The data I was working with is from (Schaefer et al.&nbsp;2000). This data shows concentration of NH4_N, Ca, Mg, NO3_N, and K in 4 different rivers on intermittent days. I did the data cleaning in a script called cleaning_code.R that is in the scripts/supporting code folder. I made cleaned CSVs with this script and saved them into outputs/cleaned_data folder. These 4 CSVs were then read into the code below to run the analysis.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading in CSVs</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># I cleaned the Data on a seperate R script called clean_code.qmd in Scripts/Supporting Code</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>q1_unique <span class="ot">&lt;-</span><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"Data"</span>, <span class="st">"cleaned_data"</span>, <span class="st">"q1_unique.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading in CSVs</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># I cleaned the Data on a seperate R script called clean_code.qmd in Scripts/Supporting Code</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>q1_unique <span class="ot">&lt;-</span><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"outputs"</span>, <span class="st">"cleaned_data"</span>, <span class="st">"q1_unique.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 438 Columns: 8
 ── Column specification ────────────────────────────────────────────────────────
@@ -161,7 +161,7 @@ date (1): sample_date
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>q2_unique <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"Data"</span>, <span class="st">"cleaned_data"</span>, <span class="st">"q2_unique.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>q2_unique <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"outputs"</span>, <span class="st">"cleaned_data"</span>, <span class="st">"q2_unique.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 438 Columns: 8
 ── Column specification ────────────────────────────────────────────────────────
@@ -173,7 +173,7 @@ date (1): sample_date
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>q3_unique <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"Data"</span>, <span class="st">"cleaned_data"</span>, <span class="st">"q3_unique.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>q3_unique <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"outputs"</span>, <span class="st">"cleaned_data"</span>, <span class="st">"q3_unique.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 438 Columns: 8
 ── Column specification ────────────────────────────────────────────────────────
@@ -185,7 +185,7 @@ date (1): sample_date
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>prm_unique <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"Data"</span>, <span class="st">"cleaned_data"</span>, <span class="st">"prm_unique.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>prm_unique <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"outputs"</span>, <span class="st">"cleaned_data"</span>, <span class="st">"prm_unique.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 338 Columns: 8
 ── Column specification ────────────────────────────────────────────────────────
@@ -202,117 +202,122 @@ date (1): sample_date
 </section>
 <section id="methods" class="level1">
 <h1>Methods</h1>
+<p>The analysis used in this project is a centered rolling average that is calculated over 9 week intervals. Since the samples were taken on intermittent days I used the slide_index_dbl() function from the package slider to find the rolling average. This function was preformed on all 4 data sets separately (q1_unique.csv, q2_unique.csv, q3_unique.csv, prm_unique.csv). Once the rolling average was calculated for each contaminant, the data was merged into one big data set. I then pivoted longer, so it can be plotted using a facet_wrap.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculation centered moving average for NH4_N, Ca, Mg, NO3_N, and K for each data with a 9 week sliding window.</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculation moving average for Q1</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>q1collumns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"nh4_n"</span>, <span class="st">"ca"</span>, <span class="st">"mg"</span>, <span class="st">"no3_n"</span>, <span class="st">"k"</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (col <span class="cf">in</span> q1collumns) {</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  q1_unique <span class="ot">&lt;-</span> q1_unique <span class="sc">%&gt;%</span> <span class="co"># Won't work with |&gt; pipes. </span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!!</span><span class="fu">paste0</span>(col, <span class="st">"_rolling_avg"</span>) <span class="sc">:</span><span class="er">=</span> <span class="fu">slide_index_dbl</span>(</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">.x =</span> .[[col]],</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">.i =</span> sample_date,</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">.f =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">.before =</span> (<span class="dv">7</span><span class="sc">*</span><span class="dv">9</span>)<span class="sc">/</span><span class="dv">2</span>,   </span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">.after  =</span> (<span class="dv">7</span><span class="sc">*</span><span class="dv">9</span>)<span class="sc">/</span><span class="dv">2</span>,</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">.complete =</span> <span class="cn">FALSE</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculation moving average for Q2</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>q2collumns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"nh4_n"</span>, <span class="st">"ca"</span>, <span class="st">"mg"</span>, <span class="st">"no3_n"</span>, <span class="st">"k"</span>)</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (col <span class="cf">in</span> q2collumns) {</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  q2_unique <span class="ot">&lt;-</span> q2_unique <span class="sc">%&gt;%</span></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!!</span><span class="fu">paste0</span>(col, <span class="st">"_rolling_avg"</span>) <span class="sc">:</span><span class="er">=</span> <span class="fu">slide_index_dbl</span>(</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">.x =</span> .[[col]],</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">.i =</span> sample_date,</span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">.f =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),  </span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">.before =</span> (<span class="dv">7</span><span class="sc">*</span><span class="dv">9</span>)<span class="sc">/</span><span class="dv">2</span>,</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">.after  =</span> (<span class="dv">7</span><span class="sc">*</span><span class="dv">9</span>)<span class="sc">/</span><span class="dv">2</span>,</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">.complete =</span> <span class="cn">FALSE</span></span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculation moving average for Q3</span></span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>q3collumns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"nh4_n"</span>, <span class="st">"ca"</span>, <span class="st">"mg"</span>, <span class="st">"no3_n"</span>, <span class="st">"k"</span>)</span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (col <span class="cf">in</span> q3collumns) {</span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>  q3_unique <span class="ot">&lt;-</span> q3_unique <span class="sc">%&gt;%</span></span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!!</span><span class="fu">paste0</span>(col, <span class="st">"_rolling_avg"</span>) <span class="sc">:</span><span class="er">=</span> <span class="fu">slide_index_dbl</span>(</span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">.x =</span> .[[col]],</span>
-<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>        <span class="at">.i =</span> sample_date,</span>
-<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>        <span class="at">.f =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),  </span>
-<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">.before =</span> (<span class="dv">7</span><span class="sc">*</span><span class="dv">9</span>)<span class="sc">/</span><span class="dv">2</span>, </span>
-<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>        <span class="at">.after  =</span> (<span class="dv">7</span><span class="sc">*</span><span class="dv">9</span>)<span class="sc">/</span><span class="dv">2</span>,</span>
-<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>        <span class="at">.complete =</span> <span class="cn">FALSE</span></span>
-<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculation moving average for Q3</span></span>
-<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>prmcollumns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"nh4_n"</span>, <span class="st">"ca"</span>, <span class="st">"mg"</span>, <span class="st">"no3_n"</span>, <span class="st">"k"</span>)</span>
-<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (col <span class="cf">in</span> prmcollumns) {</span>
-<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>  prm_unique <span class="ot">&lt;-</span> prm_unique <span class="sc">%&gt;%</span></span>
-<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!!</span><span class="fu">paste0</span>(col, <span class="st">"_rolling_avg"</span>) <span class="sc">:</span><span class="er">=</span> <span class="fu">slide_index_dbl</span>(</span>
-<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a>        <span class="at">.x =</span> .[[col]],</span>
-<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a>        <span class="at">.i =</span> sample_date,</span>
-<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a>        <span class="at">.f =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a>        <span class="at">.before =</span> (<span class="dv">7</span><span class="sc">*</span><span class="dv">9</span>)<span class="sc">/</span><span class="dv">2</span>,</span>
-<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a>        <span class="at">.after  =</span> (<span class="dv">7</span><span class="sc">*</span><span class="dv">9</span>)<span class="sc">/</span><span class="dv">2</span>,</span>
-<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a>        <span class="at">.complete =</span> <span class="cn">FALSE</span></span>
-<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a><span class="co"># Combing all data sets(q1_unique, q2_unique, q3_unique, prm_unique) into one.</span></span>
-<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a>river_df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(q1_unique, q2_unique, q3_unique, prm_unique)</span>
-<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivoting longer so I can facet wrap my ggplot for contaminants</span></span>
-<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a>river_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> river_df, </span>
-<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a>                           <span class="at">cols =</span>  <span class="fu">c</span>(<span class="st">"nh4_n_rolling_avg"</span>, <span class="st">"ca_rolling_avg"</span>, </span>
-<span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"mg_rolling_avg"</span>, <span class="st">"no3_n_rolling_avg"</span>, <span class="st">"k_rolling_avg"</span>), </span>
-<span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a>                           <span class="at">names_to =</span> <span class="st">"contaminant"</span>,</span>
-<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a>                           <span class="at">values_to =</span> <span class="st">"rolling_avgs"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculation centered moving average for NH4_N, Ca, Mg, NO3_N, and K for each data with a 9 week sliding window.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculation moving average for Q1</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>q1collumns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"nh4_n"</span>, <span class="st">"ca"</span>, <span class="st">"mg"</span>, <span class="st">"no3_n"</span>, <span class="st">"k"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (col <span class="cf">in</span> q1collumns) {</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creates a new column with the name [contaminit] + _rolling_avg</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  q1_unique <span class="ot">&lt;-</span> q1_unique <span class="sc">%&gt;%</span> <span class="co"># Won't work with |&gt; pipes. </span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!!</span><span class="fu">paste0</span>(col, <span class="st">"_rolling_avg"</span>) <span class="sc">:</span><span class="er">=</span> <span class="fu">slide_index_dbl</span>( </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">.x =</span> .[[col]], <span class="co"># Columns being iterated over and what mean is being applied too</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">.i =</span> sample_date, <span class="co"># Dates are used to determine the rolling avg window </span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">.f =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="co"># This is the function used and ignores the NAs</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># .before/.after make the window be 9 weeks</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">.before =</span> (<span class="dv">7</span><span class="sc">*</span><span class="dv">9</span>)<span class="sc">/</span><span class="dv">2</span>,   </span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">.after  =</span> (<span class="dv">7</span><span class="sc">*</span><span class="dv">9</span>)<span class="sc">/</span><span class="dv">2</span>,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">.complete =</span> <span class="cn">FALSE</span> <span class="co"># This allows incomplete windows at the start and end of dates column</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculation moving average for Q2</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>q2collumns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"nh4_n"</span>, <span class="st">"ca"</span>, <span class="st">"mg"</span>, <span class="st">"no3_n"</span>, <span class="st">"k"</span>)</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (col <span class="cf">in</span> q2collumns) {</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>  q2_unique <span class="ot">&lt;-</span> q2_unique <span class="sc">%&gt;%</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!!</span><span class="fu">paste0</span>(col, <span class="st">"_rolling_avg"</span>) <span class="sc">:</span><span class="er">=</span> <span class="fu">slide_index_dbl</span>(</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">.x =</span> .[[col]],</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">.i =</span> sample_date,</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">.f =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),  </span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">.before =</span> (<span class="dv">7</span><span class="sc">*</span><span class="dv">9</span>)<span class="sc">/</span><span class="dv">2</span>,</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">.after  =</span> (<span class="dv">7</span><span class="sc">*</span><span class="dv">9</span>)<span class="sc">/</span><span class="dv">2</span>,</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">.complete =</span> <span class="cn">FALSE</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculation moving average for Q3</span></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>q3collumns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"nh4_n"</span>, <span class="st">"ca"</span>, <span class="st">"mg"</span>, <span class="st">"no3_n"</span>, <span class="st">"k"</span>)</span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (col <span class="cf">in</span> q3collumns) {</span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>  q3_unique <span class="ot">&lt;-</span> q3_unique <span class="sc">%&gt;%</span></span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!!</span><span class="fu">paste0</span>(col, <span class="st">"_rolling_avg"</span>) <span class="sc">:</span><span class="er">=</span> <span class="fu">slide_index_dbl</span>(</span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>        <span class="at">.x =</span> .[[col]],</span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">.i =</span> sample_date,</span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>        <span class="at">.f =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),  </span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>        <span class="at">.before =</span> (<span class="dv">7</span><span class="sc">*</span><span class="dv">9</span>)<span class="sc">/</span><span class="dv">2</span>, </span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>        <span class="at">.after  =</span> (<span class="dv">7</span><span class="sc">*</span><span class="dv">9</span>)<span class="sc">/</span><span class="dv">2</span>,</span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a>        <span class="at">.complete =</span> <span class="cn">FALSE</span></span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculation moving average for Q3</span></span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a>prmcollumns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"nh4_n"</span>, <span class="st">"ca"</span>, <span class="st">"mg"</span>, <span class="st">"no3_n"</span>, <span class="st">"k"</span>)</span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (col <span class="cf">in</span> prmcollumns) {</span>
+<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a>  prm_unique <span class="ot">&lt;-</span> prm_unique <span class="sc">%&gt;%</span></span>
+<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!!</span><span class="fu">paste0</span>(col, <span class="st">"_rolling_avg"</span>) <span class="sc">:</span><span class="er">=</span> <span class="fu">slide_index_dbl</span>(</span>
+<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a>        <span class="at">.x =</span> .[[col]],</span>
+<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a>        <span class="at">.i =</span> sample_date,</span>
+<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a>        <span class="at">.f =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a>        <span class="at">.before =</span> (<span class="dv">7</span><span class="sc">*</span><span class="dv">9</span>)<span class="sc">/</span><span class="dv">2</span>,</span>
+<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a>        <span class="at">.after  =</span> (<span class="dv">7</span><span class="sc">*</span><span class="dv">9</span>)<span class="sc">/</span><span class="dv">2</span>,</span>
+<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a>        <span class="at">.complete =</span> <span class="cn">FALSE</span></span>
+<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Combing all data sets(q1_unique, q2_unique, q3_unique, prm_unique) into one.</span></span>
+<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a>river_df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(q1_unique, q2_unique, q3_unique, prm_unique)</span>
+<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivoting longer so I can facet wrap my ggplot for contaminants</span></span>
+<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a>river_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> river_df, </span>
+<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a>                           <span class="at">cols =</span>  <span class="fu">c</span>(<span class="st">"nh4_n_rolling_avg"</span>, <span class="st">"ca_rolling_avg"</span>, </span>
+<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"mg_rolling_avg"</span>, <span class="st">"no3_n_rolling_avg"</span>,</span>
+<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"k_rolling_avg"</span>), </span>
+<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a>                           <span class="at">names_to =</span> <span class="st">"contaminant"</span>, </span>
+<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># Putting column names into contaminant column</span></span>
+<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a>                           <span class="at">values_to =</span> <span class="st">"rolling_avgs"</span>) </span>
+<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># Putting column values into rolling_avgs column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
+<p>To display the results I used ggplot. I made a function in the scripts/R folder in the awesome_function.R script. I used this function easily import the themes I wanted to use in this graph. This figure shows the rolling average of NH4_N, Ca, Mg, NO3_N, and K concentration from 1988-1996 in rivers.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generates ggplot </span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># I'm still unsure if I use the bottom or top one.</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># I still need to add that line that shows when the hurricane is at.</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Keeps the NAs in rolling_avgs</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> river_long, <span class="fu">aes</span>(<span class="at">x =</span> sample_date, <span class="at">y =</span> rolling_avgs, <span class="at">linetype =</span> sample_id)) <span class="sc">+</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>contaminant, <span class="at">scales =</span> <span class="st">"free_y"</span>, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_linedraw</span>()<span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Rolling Means"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generates ggplot</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This read in my function for ggplot theme</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"scripts"</span>, <span class="st">"R"</span>, <span class="st">"awesome_function.R"</span>))</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Specifies the hurricane date for geom_vline</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>hurricane_date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"1989-09-18"</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Ignores the NAs in rolling_avgs and generates a ggplot</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>Rolling_mean_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> river_long <span class="sc">%&gt;%</span> </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>         <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(rolling_avgs)), <span class="co">#ignores NAs</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> sample_date, <span class="at">y =</span> rolling_avgs, <span class="at">color =</span> sample_id)) <span class="sc">+</span> <span class="co"># Sets my sample_date as x and rolling_avgs as y</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Schaefer_theme</span>() <span class="co"># Adds the theme I made</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>Rolling_mean_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="paper_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Saving my ggplot to the outputs folder</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Rolling_mean_plot, <span class="at">file =</span> <span class="fu">here</span>(<span class="st">"outputs"</span>, <span class="st">"figs"</span>, <span class="st">"Rolling_mean_plot.png"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 240 rows containing missing values or values outside the scale range
-(`geom_line()`).</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="paper_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Removes the NAs in rolling_avgs</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> river_long <span class="sc">%&gt;%</span> </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(rolling_avgs)),</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> sample_date, <span class="at">y =</span> rolling_avgs, <span class="at">linetype =</span> sample_id)) <span class="sc">+</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>contaminant, <span class="at">scales =</span> <span class="st">"free_y"</span>, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_linedraw</span>()<span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Rolling Means"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="paper_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<pre><code>Saving 7 x 5 in image</code></pre>
 </div>
 </div>
 </section>
@@ -320,242 +325,236 @@ date (1): sample_date
 </main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
       }
-      return false;
-    }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
-    }
-    const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
-        }
-        return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
         }
       }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
     }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
     }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
       } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
         }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
       }
     }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
           }
         } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
+          // See if we can fetch this
+          fetch(url.split('#')[0])
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
+            const note = htmlDoc.getElementById(id);
             if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
+              const html = processXRef(id, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -563,161 +562,185 @@ date (1): sample_date
             instance.show();
           });
         }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
       } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
             }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
         });
       }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
     }
-  });
-  </script>
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
 </div> <!-- /content -->
 
 

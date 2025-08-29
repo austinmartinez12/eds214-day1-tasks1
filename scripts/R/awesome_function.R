@@ -25,7 +25,7 @@ Schaefer_theme <- function() {
     theme_linedraw() , 
     # The code below changes the names of all the elements
     labs(x = "Year", y = "Rolling Averages", color = "Streams", title = "Hurricane Effects on Stream Chemistry") , 
-    geom_vline(xintercept = hurricane_date, linetype = "dashed") , # This adds a line showing the hurricane occurance date
+    geom_vline(xintercept = hurricanedate, linetype = "dashed") , # This adds a line showing the hurricane occurance date
     scale_color_manual( # This changes the color of each line
       values = c("Q1" = "red",
                  "Q2" = "dodgerblue",
@@ -37,3 +37,9 @@ Schaefer_theme <- function() {
   )
   
 }
+
+
+
+
+
+

@@ -110,10 +110,10 @@ for (col in prmcollumns) {
 }
 
 # Combing all data sets(q1_unique, q2_unique, q3_unique, prm_unique) into one.
-river_df <- bind_rows(q1_unique, q2_unique, q3_unique, prm_unique)
+riverbind <- bind_rows(q1_unique, q2_unique, q3_unique, prm_unique)
 
 # Pivoting longer so I can facet wrap my ggplot for contaminants
-river_long <- pivot_longer(data = river_df, 
+riverlong <- pivot_longer(data = riverbind, 
                            cols =  c("nh4_n_rolling_avg", "ca_rolling_avg", 
                                      "mg_rolling_avg", "no3_n_rolling_avg",
                                      "k_rolling_avg"), 
@@ -134,19 +134,21 @@ To display the results I used ggplot. I made a function in the scripts/R folder 
 source(here::here("scripts", "R", "awesome_function.R"))
 
 # Specifies the hurricane date for geom_vline
-hurricane_date <- ymd("1989-09-18")
+hurricanedate <- ymd("1989-09-18")
 
 # Ignores the NAs in rolling_avgs and generates a ggplot
-Rolling_mean_plot <- ggplot(data = river_long %>% 
+Rollingmeanplot <- ggplot(data = riverlong %>% 
          filter(!is.na(rolling_avgs)), #ignores NAs
   aes(x = sample_date, y = rolling_avgs, color = sample_id)) + # Sets my sample_date as x and rolling_avgs as y
   geom_line() + 
   Schaefer_theme() # Adds the theme I made
 
-Rolling_mean_plot
+Rollingmeanplot
 ```
 
 ```{r}
 # Saving my ggplot to the outputs folder
 ggsave(Rolling_mean_plot, file = here("outputs", "figs", "Rolling_mean_plot.png"))
 ```
+
+
