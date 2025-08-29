@@ -29,13 +29,14 @@ https://github.com/austinmartinez12/eds214-day1-tasks1/commit/963dcc8fb920feb5bb
 
 ## Automate
 
-[NY] **Running the entire analysis requires rendering one Quarto document**
+[M] **Running the entire analysis requires rendering one Quarto document**
 
-[NY] The analysis runs without errors
+[M] The analysis runs without errors
 
-[NY] **The analysis produces the expected output**
+[M] **The analysis produces the expected output**
 
-[M] **Data import/cleaning is handled in its own script(s)**
+[NY] **Data import/cleaning is handled in its own script(s)**
+- Ran within `paper.qmd`, should use `source()`
 
 ## Organize
 
@@ -51,7 +52,7 @@ https://github.com/austinmartinez12/eds214-day1-tasks1/commit/963dcc8fb920feb5bb
 
 [NY] **The README includes a flowchart and text explaining how the analysis works**
 
-[NY] **The code is appropriately commented**
+[M] **The code is appropriately commented**
 - Remove "I" statements
 
 [NY] **Variable and function names are descriptive and follow a consistent naming convention**
@@ -63,7 +64,7 @@ After cloning the repo on Workbench:
 
 [M] Running the environment initialization script installs all required packages
 
-[NY] The analysis script runs without errors
+[M] The analysis script runs without errors
 
 ## Collaborate
 
