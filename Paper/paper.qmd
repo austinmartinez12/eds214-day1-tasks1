@@ -133,7 +133,7 @@ Rolling_mean_plot <- ggplot(data = river_long %>%
          filter(!is.na(rolling_avgs)), #ignores NAs
   aes(x = sample_date, y = rolling_avgs, color = sample_id)) + # Sets my sample_date as x and rolling_avgs as y
   geom_line() + 
-  awesome_theme(lazy) # Adds the theme I made
+  Schaefer_theme() # Adds the theme I made
 
 Rolling_mean_plot
 ```
@@ -142,3 +142,5 @@ Rolling_mean_plot
 # Saving my ggplot to the outputs folder
 ggsave(Rolling_mean_plot, file = here("outputs", "Rolling_mean_plot.png"))
 ```
+
+

@@ -1,7 +1,18 @@
+#' Schaefer ggplot theme
+#' 
+#'
+#' @returns
+#' @export
+#'
+#' @examples
+#' Rolling_mean_plot <- ggplot(data = river_long %>% 
+#' filter(!is.na(rolling_avgs)), #ignores NAs
+#' aes(x = sample_date, y = rolling_avgs, color = sample_id)) + # Sets my sample_date as x and rolling_avgs as y
+#'  geom_line() + 
+#'  Schaefer_theme() # Adds the theme I made
 
 # making a function for all the themes of my ggplot
-
-awesome_theme <- function(lazy) {
+Schaefer_theme <- function() {
   list(  
     facet_wrap(~contaminant, scales = "free_y", ncol = 1, strip.position = "left", 
                # as_labeller is changing the names on the y axes of the plots 
