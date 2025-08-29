@@ -1,7 +1,8 @@
 # Exceeds spec
 
-## [ ] The analysis produces the expected output
-My figure was produced in a professional way. I not only replicated it correclty, but I also went beyond and made it even better. The choices of lines in the original graph made it hard to see so I added my own colors to it. I also made a function to not make the code super long and easy to digest.
+## [ ] The README includes a flowchart and text explaining how the analysis works
+My flowchart and analysis are very polished. I made it on google slides and made sure it looked clean and easy to follow. My analysis description walks you threw exactly why I chose the exact function I used and the package I got it from. I even described the steps I did after running the function to prepare it for data visualization.
+
 
 ## [ ] At least one piece of functionality has been refactored into a function in its own file
 I refactored my themes in my ggplot and added a function that makes loading in libraries easier. My function for my ggplot theme made my long code chunk a smaller more polished version. My function for loading in libraries will save future editors on this script or other scripts that use it time. They wont have to manually type library() for every single package they use. In addition I also added a roxygen skelleton to both functions that shows what the parameters are and what they stand for. I also provided examples of how it can be implemented into code.
