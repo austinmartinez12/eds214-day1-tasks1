@@ -23,7 +23,7 @@ This repository contains data from the paper:
 
 ## Flow Chart
 
-![Flow Chart](images/Flow_Chart.png)The analysis used in this project is a centered rolling average that is calculated over 9 week intervals. Since the samples were taken on intermiittent days I used the slide_index_dbl() function from the package slider to find the rolling average. This function was preformed on all 4 data sets separately (q1_unique.csv, q2_unique.csv, q3_unique.csv, prm_unique.csv). Once the rolling average was calculated for each contaminant, the data was merged into one big data set, so it can be plotted using a facet_wrap.
+![Flow Chart](images/Flow_Chart.png)The analysis used in this project is a centered rolling average that is calculated over 9 week intervals. Since the samples were taken on intermittent days I used the slide_index_dbl() function from the package slider to find the rolling average. This function was preformed on all 4 data sets separately (q1_unique.csv, q2_unique.csv, q3_unique.csv, prm_unique.csv). Once the rolling average was calculated for each contaminant, the data was merged into one big data set, so it can be plotted using a facet_wrap.
 
 ### Contributors
 
